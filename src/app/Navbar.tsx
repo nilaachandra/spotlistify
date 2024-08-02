@@ -7,7 +7,7 @@ import { CiStar } from "react-icons/ci";
 import { LuGithub } from "react-icons/lu";
 const Navbar = () => {
   return (
-    <header className="w-full flex justify-between items-center">
+    <header className="w-full p-4 rounded-lg bg-zinc-900 flex justify-between items-center">
       <Logo />
       <Link href={'/login'}>
       <Avatar>

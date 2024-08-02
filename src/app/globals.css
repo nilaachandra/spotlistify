@@ -63,3 +63,453 @@
 .debug {
   @apply border border-red-500
 }
+
+
+/* heart */
+:root {
+  --heart-color: #1ed760;
+  --heart-width: 13px;
+  --heart-height: var(--heart-width);
+  --heart-color-sm-white: #b3efc9;
+  --heart-color-sm: #1ed760;
+  --heart-width-sm: calc(var(--heart-width) / 2);
+  --heart-height-sm: var(--heart-width-sm);
+}
+
+
+
+.heart-shape {
+  transform: rotate(45deg);
+  width: var(--heart-width);
+  height: var(--heart-height);
+  background-color: var(--heart-color);
+}
+
+.heart-shape:before,
+.heart-shape:after {
+  position: absolute;
+  width: var(--heart-width);
+  height: var(--heart-height);
+  content: "";
+  border-radius: 50%;
+  background-color: var(--heart-color);
+}
+
+.heart-shape:before {
+  bottom: 0px;
+  left: calc(
+    var(--heart-width) - (var(--heart-width) + var(--heart-width) / 2)
+  );
+}
+
+.heart-shape:after {
+  top: calc(var(--heart-width) - (var(--heart-width) + var(--heart-width) / 2));
+  right: 0px;
+}
+
+.like__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+}
+
+.like__heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.bounce {
+  background-color: #1ed760;
+  transform: scale(1.05), rotate(45deg);
+}
+
+.like_effect__circle_1 {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #2fcf2f8a;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.like_effect__circle_2 {
+  width: 50px;
+  height: 50px;
+  border-width: 2px;
+}
+
+.bounce .show {
+  border-color: #2fcf2f;
+  -webkit-animation: circleBounce;
+  animation: circleBounce;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+
+.heart-shape-sm {
+  transform: rotate(45deg);
+  width: var(--heart-width-sm);
+  height: var(--heart-height-sm);
+  background-color: var(--heart-color-sm);
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.heart-shape-sm:before,
+.heart-shape-sm:after {
+  position: absolute;
+  width: var(--heart-width-sm);
+  height: var(--heart-height-sm);
+  content: "";
+  border-radius: 50%;
+  background-color: var(--heart-color-sm);
+}
+
+.heart-shape-sm:before {
+  bottom: 0px;
+  left: calc(
+    var(--heart-width-sm) - (var(--heart-width-sm) + var(--heart-width-sm) / 2)
+  );
+}
+
+.heart-shape-sm:after {
+  top: calc(
+    var(--heart-width-sm) - (var(--heart-width-sm) + var(--heart-width-sm) / 2)
+  );
+  right: 0px;
+}
+
+.heart-shape-sm-white {
+  background-color: var(--heart-color-sm-white);
+}
+
+.heart-shape-sm-white:before,
+.heart-shape-sm-white:after {
+  background-color: var(--heart-color-sm-white);
+}
+
+.bounce .heart-split-1 {
+  -webkit-animation: HeartBounce1;
+  animation: HeartBounce1;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+
+.bounce .heart-split-2 {
+  -webkit-animation: HeartBounce2;
+  animation: HeartBounce2;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-3 {
+  -webkit-animation: HeartBounce3;
+  animation: HeartBounce3;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-4 {
+  -webkit-animation: HeartBounce4;
+  animation: HeartBounce4;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-5 {
+  -webkit-animation: HeartBounce5;
+  animation: HeartBounce5;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-6 {
+  -webkit-animation: HeartBounce6;
+  animation: HeartBounce6;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-7 {
+  -webkit-animation: HeartBounce7;
+  animation: HeartBounce7;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-8 {
+  -webkit-animation: HeartBounce8;
+  animation: HeartBounce8;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-9 {
+  -webkit-animation: HeartBounce9;
+  animation: HeartBounce9;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+.bounce .heart-split-10 {
+  -webkit-animation: HeartBounce10;
+  animation: HeartBounce10;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes circleBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    border-color: #2fcf2f;
+  }
+  75% {
+    transform: scale(1.2);
+    opacity: 1;
+    border-color: #2fcf2f;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes circleBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    border-color: #2fcf2f;
+  }
+  75% {
+    transform: scale(1.2);
+    opacity: 1;
+    border-color: #2fcf2f;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes HeartBounce1 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translate(17px, 18px);
+  }
+  100% {
+    transform: translate(17px, 18px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce1 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translate(17px, 18px);
+  }
+  100% {
+    transform: translate(17px, 18px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(36px, 3px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(36px, 3px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce3 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-3px, 34px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce3 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-3px, 34px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce4 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-27px, 13px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce4 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-27px, 13px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce5 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-34px, -2px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce5 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-34px, -2px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce6 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-33px, -26px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce6 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-33px, -26px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce7 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-4px, -38px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce7 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-4px, -38px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce8 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(32px, -36px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce8 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(32px, -36px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce9 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-9px, -16px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce9 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-9px, -16px);
+    filter: blur(0.07em);
+  }
+}
+@-webkit-keyframes HeartBounce10 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-19px, -16px);
+    filter: blur(0.07em);
+  }
+}
+@keyframes HeartBounce10 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-19px, -16px);
+    filter: blur(0.07em);
+  }
+} /*# sourceMappingURL=styles.css.map */
