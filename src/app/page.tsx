@@ -9,7 +9,7 @@ export default function Home() {
         <h1 className="text-4xl lg:text-6xl font-bold leading-none text-center mt-6">
           Find Your <span className="text-green">Perfect Spotify Playlist!</span> 
         </h1>
-        <h1 className="my-2">Your Ultimate Spotify Playlists Directory!</h1>
+        <h1 className="my-2 ">Your Ultimate Spotify Playlists Directory!</h1>
         <div className=" flex items-center gap-3 mt-3 ">
           <Button className="font-semibold rounded-lg">Get Started</Button>
           <Button
