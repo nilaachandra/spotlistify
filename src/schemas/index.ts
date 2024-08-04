@@ -28,12 +28,6 @@ export const BackendSignupSchema = z.object({
 
 //login schema
 export const LoginSchema = z.object({
-    username: z.string().min(4, {
-        message: "Username shoudld be minimum 4 characters."
-    }).max(18, {
-        message: "Username should be maximum 18 characters."
-    }),
-    password: z.string().min(6, {
-        message: "Password should be Minimum 6 characters"
-    }),
-})
+    email: z.string().email(),
+    password: z.string().min(6),
+});

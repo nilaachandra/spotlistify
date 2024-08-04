@@ -4,7 +4,6 @@ import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -25,25 +24,31 @@ import { IoReloadCircleOutline } from "react-icons/io5";
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  
+  // Initialize the form with react-hook-form and zod resolver
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      username: "",
+      email: "", // Changed from email to email
       password: "",
     },
   });
 
+  // Handle form submission
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(async () => {
+      // Attempt to sign in using NextAuth
       const result = await signIn("credentials", {
         redirect: false,
-        username: values.username,
+        email: values.email, // Changed from email to email
         password: values.password,
       });
 
       if (result?.error) {
+        // Show error message if login fails
         toast.error(result.error);
       } else {
+        // Show success message and redirect on successful login
         toast.success("Logged in successfully!");
         router.push("/profile");
       }
@@ -51,24 +56,24 @@ const LoginForm = () => {
   };
 
   return (
-    <Card className="p-4 border border-black">
+    <Card className="lg:w-1/2 w-full p-4 border border-black">
       <CardTitle className="mb-3 text-lg">
-        Sign Up now to start listing your Playlists
+        Sign In to your account
       </CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">Username</FormLabel>
+                <FormLabel className="font-semibold">email</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     disabled={isPending}
-                    type="text"
-                    placeholder="Enter Your Username"
+                    type="email"
+                    placeholder="Enter Your email"
                   />
                 </FormControl>
                 <FormMessage />
@@ -101,7 +106,7 @@ const LoginForm = () => {
                 <span>Please Wait</span>
               </>
             ) : (
-              <span>Sign Up</span>
+              <span>Sign In</span>
             )}
           </Button>
         </form>
