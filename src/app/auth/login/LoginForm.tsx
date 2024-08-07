@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -24,7 +24,7 @@ import { IoReloadCircleOutline } from "react-icons/io5";
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  
+
   // Initialize the form with react-hook-form and zod resolver
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -49,17 +49,15 @@ const LoginForm = () => {
         toast.error(result.error);
       } else {
         // Show success message and redirect on successful login
-        toast.success("Logged in successfully!");
-        router.push("/profile");
+        redirect("/profile");
       }
+      toast.success("Logged in successfully!");
     });
   };
 
   return (
     <Card className="lg:w-1/2 w-full p-4 border border-black">
-      <CardTitle className="mb-3 text-lg">
-        Sign In to your account
-      </CardTitle>
+      <CardTitle className="mb-3 text-lg">Sign In to your account</CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

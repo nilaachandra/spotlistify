@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useTransition } from 'react';
-import { handleSignOut } from './actions';
-import { Button } from '@/components/ui/button';
+import { useTransition } from "react";
+import { handleSignOut } from "./actions";
+import { Button } from "@/components/ui/button";
 
 export default function SignOutButton() {
   const [isPending, startTransition] = useTransition();
@@ -12,7 +12,7 @@ export default function SignOutButton() {
       onClick={() => startTransition(() => handleSignOut())}
       disabled={isPending}
     >
-      {isPending ? 'Signing out...' : 'Sign Out'}
+      {isPending ? "Signing out..." : "Sign Out"}
     </Button>
   );
 }

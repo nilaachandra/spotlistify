@@ -15,7 +15,11 @@ export const {
     adapter: PrismaAdapter(db),
 
     // Use JWT strategy for session handling
-    session: { strategy: "jwt", },
+    session: {
+        strategy: "jwt",
+        maxAge: 24 * 60 * 60, // 1 day in seconds
+    },
+
 
     // Custom signin page
     pages: {
@@ -65,8 +69,8 @@ export const {
         // Callback for session creation/update
         async session({ session, token }: { session: Session, token: any }) {
             if (session.user) { // Check if session.user is defined
-              session.user.id = token.id;
-              session.user.email = token.email;
+                session.user.id = token.id;
+                session.user.email = token.email;
             }
             return session;
         },

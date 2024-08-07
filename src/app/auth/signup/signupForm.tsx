@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardTitle } from "@/components/ui/card";
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import axios from "axios";
@@ -35,21 +35,17 @@ const SignupForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof SignupSchema>) => {
-    // Validate the entire form data including confirmPassword
     const validationResult = SignupSchema.safeParse(values);
 
     if (!validationResult.success) {
       console.error("Validation errors:", validationResult.error);
-      // Handle validation errors (e.g., display error messages)
       return;
     }
 
-    // If validation is successful, prepare the data to send to the backend
     const dataToSend = {
       username: values.username,
       email: values.email,
       password: values.password,
-      // Note: confirmPassword is not included here
     };
 
     startTransition(async () => {
@@ -65,15 +61,13 @@ const SignupForm = () => {
           toast.success("Your account has been created!");
         } else {
           toast.error(
-            response.data.message ||
-              "Account creation failed. Please try again."
+            response.data.message || "Account creation failed. Please try again."
           );
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           toast.error(
-            error.response.data.message ||
-              "An error occurred. Please try again."
+            error.response.data.message || "An error occurred. Please try again."
           );
         } else {
           console.error("Error during signup:", error);
@@ -95,9 +89,10 @@ const SignupForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">Username</FormLabel>
+                <FormLabel htmlFor="username" className="font-semibold">Username</FormLabel>
                 <FormControl>
                   <Input
+                    id="username"
                     {...field}
                     disabled={isPending}
                     type="text"
@@ -114,9 +109,10 @@ const SignupForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">Email</FormLabel>
+                <FormLabel htmlFor="email" className="font-semibold">Email</FormLabel>
                 <FormControl>
                   <Input
+                    id="email"
                     {...field}
                     disabled={isPending}
                     type="email"
@@ -133,9 +129,10 @@ const SignupForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">Password</FormLabel>
+                <FormLabel htmlFor="password" className="font-semibold">Password</FormLabel>
                 <FormControl>
                   <Input
+                    id="password"
                     {...field}
                     disabled={isPending}
                     type="password"
@@ -152,11 +149,12 @@ const SignupForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">
+                <FormLabel htmlFor="confirmPassword" className="font-semibold">
                   Confirm Password
                 </FormLabel>
                 <FormControl>
                   <Input
+                    id="confirmPassword"
                     {...field}
                     disabled={isPending}
                     type="password"
