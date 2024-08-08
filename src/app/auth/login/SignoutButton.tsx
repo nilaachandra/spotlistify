@@ -8,8 +8,11 @@ export default function SignOutButton() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <p className="cursor-pointer" onClick={() => startTransition(() => handleSignOut())}>
+    <span
+      className="cursor-pointer"
+      onClick={() => startTransition(() => handleSignOut())}
+    >
       {isPending ? "Signing out..." : "Sign Out"}
-    </p>
+    </span>
   );
 }

@@ -33,7 +33,7 @@ const DrawerComponent = async () => {
           <DrawerClose className="flex flex-col items-center w-full gap-2">
             {session?.user ? (
               <>
-                <Button className="w-full">
+                <Button  className="w-full">
                   <Link
                     href={"/profile"}
                     className=" p-1.5 w-full rounded-md text-center hover:opacity-80 transition-all duration-200"

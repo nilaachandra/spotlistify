@@ -14,6 +14,8 @@ const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   weight: ["400", "800"],
 });
+
+
 export const metadata: Metadata = {
   title: "Spotlistify",
   description: "A Spotify Playlists Directory",
@@ -25,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={bricolage.className} suppressHydrationWarning>
+    <html lang="en" className={`${bricolage.className} ${fontSans.className}`} suppressHydrationWarning>
       <head />
       <body className={cn("bg-zinc-950 text-cream min-h-screen")}>
         <div className="w-full max-w-[712px] mx-auto px-4 py-2">

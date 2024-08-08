@@ -27,13 +27,15 @@ export default function Home() {
           Discover cool Playlists, upvote, bookmark or share them!
         </h1>
         {/* List */}
-        <PlaylistCard description="The ksdhhhfds"
-        imageUrl="/spotlistify.png"
-        likes={27}
-        owner="Nilaa Laishram"
-        postedBy="Nilaacodes"
-        songs="112 Songs"
-        title="Hahahahah"
+        <PlaylistCard
+          description="The ksdhhhfds"
+          imageUrl="/spotlistify.png"
+          likes={27}
+          owner="Nilaa Laishram"
+          postedBy="Nilaacodes"
+          songs="112 Songs"
+          title="Hahahahah"
+          isProfile={false}
         />
         {/* list */}
       </section>
