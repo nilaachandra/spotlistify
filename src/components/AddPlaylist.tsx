@@ -1,3 +1,4 @@
+import AddPlaylistForm from "@/app/(protected)/profile/AddPlaylistForm";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,10 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-export default function AddPlaylist() {
+export default function AddPlaylist({ userId }: { userId: string | null }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,32 +24,9 @@ export default function AddPlaylist() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4 text-left items-start w-full">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Playlist Link
-            </Label>
-            <Input
-              id="username"
-              value=""
-              placeholder="https://"
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Description
-            </Label>
-            <Input
-              id="name"
-              value=""
-              placeholder="write something about your playlist"
-              className="col-span-3"
-            />
-          </div>
+          <AddPlaylistForm userId={userId} />
         </div>
-        <DialogFooter className="flex items-end justify-end w-full">
-          <Button type="submit">Add</Button>
-        </DialogFooter>
+        <DialogFooter className="flex items-end justify-end w-full"></DialogFooter>
       </DialogContent>
     </Dialog>
   );

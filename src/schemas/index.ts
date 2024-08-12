@@ -31,3 +31,13 @@ export const LoginSchema = z.object({
     email: z.string().email(),
     password: z.string().min(6),
 });
+
+//playlist schema
+export const PlaylistSchema = z.object({
+    link: z.string().min(1, {
+        message: "Please add an valid link"
+    }),
+    description: z.string().min(4, {
+        message: "Please Add a description"
+    })
+})

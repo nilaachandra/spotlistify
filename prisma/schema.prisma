@@ -3,7 +3,6 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,10 +15,45 @@ datasource db {
 }
 
 model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  username  String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  playlists Playlist[]
+  likes     Like[]
+  comments  Comment[]
+}
+
+model Playlist {
+  id          String    @id @default(cuid())
+  description String?
+  link        String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  likes       Like[]
+  comments    Comment[]
+}
+
+model Like {
   id         String   @id @default(cuid())
-  email      String   @unique
-  username   String   @unique
-  password   String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  playlistId String
+  createdAt  DateTime @default(now())
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  content    String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  playlist   Playlist @relation(fields: [playlistId], references: [id])
+  playlistId String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }

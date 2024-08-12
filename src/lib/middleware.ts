@@ -6,7 +6,7 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth
 
   // Define routes that require authentication
-  const protectedRoutes = ["/profile", "/dashboard", "/settings"]
+  const protectedRoutes = ["/profile", "/dashboard", "/settings", ]
   
   // Define routes that are only accessible for non-authenticated users
   const authRoutes = ["/auth/login", "/auth/signin", "/forgot-password"]

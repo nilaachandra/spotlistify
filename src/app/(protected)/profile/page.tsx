@@ -10,9 +10,9 @@ import { redirect } from "next/navigation";
 export default async function ProfilePage() {
   const session = await auth();
 
-  // if (!session?.user) {
-  //   redirect("/auth/login");
-  // }
+  if (!session?.user) {
+    redirect("/auth/login");
+  }
 
   console.log(session?.user);
   return (
@@ -38,7 +38,7 @@ export default async function ProfilePage() {
             </ul>
             <div className="grid grid-cols-2 items-center gap-2 w-full">
               <EditProfile />
-              <AddPlaylist />
+              <AddPlaylist userId={session?.user?.id || null}/>
             </div>
           </div>
         </div>
