@@ -3,7 +3,7 @@ import { PlaylistSchema } from "@/schemas";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useTransition } from "react";
+import React, { useTransition, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "sonner";
@@ -18,9 +18,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IoReloadCircleOutline } from "react-icons/io5";
+import metaFetcher from "meta-fetcher";
 
 const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
   const [isPending, startTransition] = useTransition();
+  const [isMetaValid, setIsMetaValid] = useState(true);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof PlaylistSchema>>({
@@ -31,7 +33,29 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
     },
   });
 
+  const checkMetaData = async (linkUrl: string) => {
+    try {
+      const result = await metaFetcher(linkUrl);
+      console.log(result)
+      if (result && result.metadata.title) {
+        setIsMetaValid(true);
+        toast.success("Metadata fetched successfully");
+      } else {
+        setIsMetaValid(false);
+        toast.error("Invalid metadata link");
+      }
+    } catch (error) {
+      setIsMetaValid(false);
+      toast.error("Failed to fetch metadata. Please check the link.");
+    }
+  };
+
   const onSubmit = async (values: z.infer<typeof PlaylistSchema>) => {
+    if (!isMetaValid) {
+      toast.error("Please enter a valid metadata link before submitting.");
+      return;
+    }
+
     startTransition(async () => {
       try {
         const response = await axios.post(
@@ -61,6 +85,7 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
       }
     });
   };
+
   return (
     <Form {...form}>
       <form
@@ -82,6 +107,7 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
                   disabled={isPending}
                   type="text"
                   placeholder="https://"
+                  onBlur={() => checkMetaData(field.value)} // Validate metadata on blur
                 />
               </FormControl>
               <FormMessage />
@@ -102,8 +128,8 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
                   id="description"
                   {...field}
                   disabled={isPending}
-                  type="description"
-                  placeholder="Enter Your description"
+                  type="text"
+                  placeholder="Enter your description"
                 />
               </FormControl>
               <FormMessage />
