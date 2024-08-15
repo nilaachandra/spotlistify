@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import { db } from "./db";
 import credentials from "next-auth/providers/credentials";
 import { LoginSchema } from "@/schemas";
-import { User } from "@prisma/client";
 
 export const {
     handlers: { GET, POST },
