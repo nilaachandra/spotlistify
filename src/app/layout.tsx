@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import Footer from "./Footer";
 import { cn } from "@/lib/utils";
 import TanstackProvider from "./_provider";
+import { ProfileProvider } from "@/contexts/profileContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -35,12 +36,14 @@ export default function RootLayout({
       <head />
       <body className={cn("bg-zinc-950 text-cream min-h-screen")}>
         <TanstackProvider>
-          <div className="w-full max-w-[712px] mx-auto px-4 py-2">
-            <Toaster duration={3000} position="top-center" />
-            <Navbar />
-            <main className="w-full">{children}</main>
-            <Footer />
-          </div>
+          <ProfileProvider>
+            <div className="w-full max-w-[712px] mx-auto px-4 py-2">
+              <Toaster duration={3000} position="top-center" />
+              <Navbar />
+              <main className="w-full">{children}</main>
+              <Footer />
+            </div>
+          </ProfileProvider>
         </TanstackProvider>
       </body>
     </html>

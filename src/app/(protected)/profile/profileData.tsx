@@ -1,3 +1,4 @@
+"use client"
 import SignOutButton from "@/app/auth/login/SignoutButton";
 import AddPlaylist from "@/components/AddPlaylist";
 import EditProfile from "@/components/EditProfile";
@@ -7,6 +8,7 @@ import Image from "next/image";
 
 export default function ProfilePage({ profileData }: { profileData: any }) {
   console.log(profileData);
+
   return (
     <>
       <section className="w-full py-4 space-y-4">
@@ -29,7 +31,7 @@ export default function ProfilePage({ profileData }: { profileData: any }) {
             </ul>
             <div className="grid grid-cols-2 items-center gap-2 w-full">
               <EditProfile />
-              <AddPlaylist userId={profileData.id} />
+              <AddPlaylist userId={profileData.id}/>
             </div>
           </div>
         </div>
@@ -42,9 +44,8 @@ export default function ProfilePage({ profileData }: { profileData: any }) {
               description={playlist.description}
               imageUrl={playlist.imageUrl}
               likes={playlist.likes}
-              owner={profileData.name}
-              postedBy={playlist.postedBy}
-              songs={`${playlist.length} Songs`}
+              postedBy={profileData.username}
+              info={playlist.info}
               title={playlist.title}
             />
           ))}

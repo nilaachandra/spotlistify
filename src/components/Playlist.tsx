@@ -8,9 +8,8 @@ type PlaylistCardProps = {
   imageUrl: string;
   title: string;
   description: string;
-  songs: string;
-  owner: string;
   postedBy: string;
+  info: string;
   likes: number;
   isProfile: boolean;
 };
@@ -19,11 +18,10 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
   imageUrl,
   title,
   description,
-  owner,
-  songs,
   postedBy,
   isProfile,
   likes,
+  info
 }) => {
   return (
     <div className="bg-zinc-900 w-full p-3 rounded-lg flex items-center justify-between cursor-pointer">
@@ -39,7 +37,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
           <h1 className="font-semibold leading-none">{title}</h1>
           <p className="text-sm">{description}</p>
           <h1 className="text-zinc-400 text-sm">
-            Playlist • {owner} • {songs}
+            {info}
           </h1>
           <div className="flex items-center gap-6 text-sm">
             <h1 className="text-zinc-400 text-sm">Posted by {postedBy}</h1>

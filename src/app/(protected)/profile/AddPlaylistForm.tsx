@@ -1,11 +1,11 @@
 "use client";
+
 import { PlaylistSchema } from "@/schemas";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { toast } from "sonner";
 import {
   Form,
@@ -18,11 +18,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IoReloadCircleOutline } from "react-icons/io5";
+import { addPlaylist, fetchMetadata } from "@/app/actions/playlist";
 
 const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
   const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
-  const [isMetaValid, setIsMetaValid] = useState<boolean | null>(null); // Null means no validation yet
+  const [isMetaValid, setIsMetaValid] = useState<boolean | null>(null);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof PlaylistSchema>>({
@@ -41,18 +42,8 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
 
     setIsLoading(true);
     try {
-      const response = await fetch("/api/fetch-metadata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: linkUrl }),
-      });
-
-      const data = await response.json();
-      console.log(data);
-
-      if (data && data.title) {
+      const result = await fetchMetadata(linkUrl);
+      if (result.success && result.data.title) {
         setIsMetaValid(true);
         toast.success("Metadata fetched successfully");
       } else {
@@ -68,32 +59,19 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof PlaylistSchema>) => {
+    if (!userId) {
+      toast.error("User ID is missing. Please log in.");
+      return;
+    }
+
     startTransition(async () => {
-      try {
-        const response = await axios.post(
-          "/api/playlists/add-playlist",
-          {
-            link: values.link,
-            description: values.description,
-            userId: userId,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response.status === 200) {
-          toast.success("Playlist added successfully");
-          form.reset();
-          router.push("/profile");
-        } else {
-          toast.error(
-            response.data.message || "Failed to add playlist. Please try again."
-          );
-        }
-      } catch (error) {
-        toast.error("An unexpected error occurred. Please try again.");
+      const result = await addPlaylist(values, userId);
+      if (result.success) {
+        toast.success(result.message);
+        form.reset();
+        router.push("/profile");
+      } else {
+        toast.error(result.error || "Failed to add playlist. Please try again.");
       }
     });
   };
@@ -115,7 +93,7 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
               <div className="grid grid-cols-4 gap-2">
                 <FormControl>
                   <Input
-                  className="col-span-3"
+                    className="col-span-3"
                     id="link"
                     {...field}
                     disabled={isPending || isLoading}
@@ -148,7 +126,7 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
                 <p className="text-sm text-red-500">Invalid Playlist link</p>
               )}
               {isMetaValid === true && !isLoading && (
-                <p className="text-sm text-green">Playlist Link Verified</p>
+                <p className="text-sm text-green-500">Playlist Link Verified</p>
               )}
             </FormItem>
           )}

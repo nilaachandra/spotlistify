@@ -30,7 +30,7 @@ model Playlist {
   id          String    @id @default(cuid())
   title       String?
   info        String?
-  imageURL    String?
+  imageUrl    String?
   description String?
   link        String
   user        User      @relation(fields: [userId], references: [id])
