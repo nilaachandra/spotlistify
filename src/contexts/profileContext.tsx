@@ -1,4 +1,3 @@
-// src/context/ProfileContext.tsx
 "use client";
 
 import { createContext, useContext, ReactNode } from "react";
@@ -9,18 +8,19 @@ type ProfileContextType = {
   data: any;
   isLoading: boolean;
   error: any;
+  refetch: any;
 };
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export function ProfileProvider({ children }: { children: ReactNode }) {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["userProfile"],
     queryFn: () => fetchProfile(),
   });
 
   return (
-    <ProfileContext.Provider value={{ data, isLoading, error }}>
+    <ProfileContext.Provider value={{ data, isLoading, error, refetch }}>
       {children}
     </ProfileContext.Provider>
   );

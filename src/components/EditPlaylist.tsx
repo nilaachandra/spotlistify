@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function EditPlaylist() {
+export default function EditPlaylist({ description }: { description: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -26,23 +26,12 @@ export default function EditPlaylist() {
         </DialogHeader>
         <div className="grid gap-4 py-4 text-left items-start w-full">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Playlist Link
-            </Label>
-            <Input
-              id="username"
-              value="https://open.spotify.com/playlist/4s0H8Qk3tsjbdMSeVkfSgx?si=3b77a97915784286"
-              placeholder=""
-              className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Description
             </Label>
             <Input
               id="name"
-              value="just some songs about her"
+              value={description}
               placeholder=""
               className="col-span-3"
             />

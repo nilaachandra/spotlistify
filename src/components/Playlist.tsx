@@ -43,7 +43,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
             <h1 className="text-zinc-400 text-sm">Posted by {postedBy}</h1>
             {isProfile ? (
               <div className="flex gap-3">
-                <EditPlaylist/>
+                <EditPlaylist description={description}/>
                 <ConfirmDelete/>
               </div>
             ) : null}

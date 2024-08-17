@@ -1,5 +1,4 @@
 "use client";
-
 import { PlaylistSchema } from "@/schemas";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,13 +18,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IoReloadCircleOutline } from "react-icons/io5";
 import { addPlaylist, fetchMetadata } from "@/app/actions/playlist";
+import { useProfile } from "@/contexts/profileContext";
 
 const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
   const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
   const [isMetaValid, setIsMetaValid] = useState<boolean | null>(null);
   const router = useRouter();
-
+  const { refetch } = useProfile();
   const form = useForm<z.infer<typeof PlaylistSchema>>({
     resolver: zodResolver(PlaylistSchema),
     defaultValues: {
@@ -70,8 +70,11 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
         toast.success(result.message);
         form.reset();
         router.push("/profile");
+        refetch();
       } else {
-        toast.error(result.error || "Failed to add playlist. Please try again.");
+        toast.error(
+          result.error || "Failed to add playlist. Please try again."
+        );
       }
     });
   };

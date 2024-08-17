@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { PlaylistSchema } from '@/schemas'
 
-// Assuming you're using Prisma for database operations
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
@@ -57,4 +56,8 @@ export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId
     console.error('Failed to add playlist:', error)
     return { success: false, error: 'Failed to add playlist. Please try again.' }
   }
+}
+
+export async function editPlaylist(userId: string, description:string) {
+  
 }
