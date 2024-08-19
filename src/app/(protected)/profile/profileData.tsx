@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import SignOutButton from "@/app/auth/login/SignoutButton";
 import AddPlaylist from "@/components/AddPlaylist";
 import EditProfile from "@/components/EditProfile";
@@ -31,7 +31,7 @@ export default function ProfilePage({ profileData }: { profileData: any }) {
             </ul>
             <div className="grid grid-cols-2 items-center gap-2 w-full">
               <EditProfile />
-              <AddPlaylist userId={profileData.id}/>
+              <AddPlaylist userId={profileData.id} />
             </div>
           </div>
         </div>
@@ -47,6 +47,8 @@ export default function ProfilePage({ profileData }: { profileData: any }) {
               postedBy={profileData.username}
               info={playlist.info}
               title={playlist.title}
+              userId={playlist.userId}
+              playlistId={playlist.id}
             />
           ))}
         </section>

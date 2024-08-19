@@ -1,3 +1,5 @@
+"use client"
+import { editPlaylist } from "@/app/actions/playlist";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,8 +12,24 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "sonner";
 
-export default function EditPlaylist({ description }: { description: string }) {
+export default  function EditPlaylist({ description, userId }: { description: string, userId: string }) {
+  const [newDesc, setNewDesc] = useState(description)
+  const handleSubmit = async () => {
+    try {
+      const result = await editPlaylist(userId, newDesc)
+      if (result.success) {
+        toast.success("Playlist updated successfully");
+      } else {
+        toast.error(result.error || "Failed to update playlist");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    }
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,14 +49,15 @@ export default function EditPlaylist({ description }: { description: string }) {
             </Label>
             <Input
               id="name"
-              value={description}
+              value={newDesc}
               placeholder=""
+              onChange={(e) => setNewDesc(e.target.value)}
               className="col-span-3"
             />
           </div>
         </div>
         <DialogFooter className="flex items-end justify-end w-full">
-          <Button type="submit">Save Changes</Button>
+          <Button type="submit" onClick={() => handleSubmit()}>Save Changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

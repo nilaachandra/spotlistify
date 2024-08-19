@@ -2,10 +2,10 @@
 
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { PlaylistSchema } from '@/schemas'
+import { EditPlaylistSchema, PlaylistSchema } from '@/schemas'
 
 import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { db } from '@/lib/db'
 
 export async function fetchMetadata(url: string) {
   const apiKey = process.env.LINKPREVIEW_DOT_NET_API_KEY!
@@ -35,7 +35,7 @@ export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId
     const metadataDescription = metadata.description || ''
 
     // Add playlist to database
-    const newPlaylist = await prisma.playlist.create({
+    const newPlaylist = await db.playlist.create({
       data: {
         link: values.link,
         description: values.description,
@@ -58,6 +58,18 @@ export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId
   }
 }
 
-export async function editPlaylist(userId: string, description:string) {
-  
+export async function editPlaylist(description: string, userId: string) {
+  try {
+    const updatedPlaylist = await db.playlist.update({
+      where: { id: userId },
+      data: {
+        description: description,
+      }
+    })
+    return { success: true, playlist: updatedPlaylist }
+
+  } catch (error) {
+    console.error('Failed to update playlist:', error)
+    return { success: false, error: 'Failed to update playlist. Please try again.' }
+  }
 }

@@ -12,6 +12,8 @@ type PlaylistCardProps = {
   info: string;
   likes: number;
   isProfile: boolean;
+  userId: string;
+  playlistId: string;
 };
 
 const PlaylistCard: React.FC<PlaylistCardProps> = ({
@@ -21,7 +23,9 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
   postedBy,
   isProfile,
   likes,
-  info
+  info,
+  userId,
+  playlistId
 }) => {
   return (
     <div className="bg-zinc-900 w-full p-3 rounded-lg flex items-center justify-between cursor-pointer">
@@ -43,7 +47,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
             <h1 className="text-zinc-400 text-sm">Posted by {postedBy}</h1>
             {isProfile ? (
               <div className="flex gap-3">
-                <EditPlaylist description={description}/>
+                <EditPlaylist userId={playlistId} description={description}/>
                 <ConfirmDelete/>
               </div>
             ) : null}

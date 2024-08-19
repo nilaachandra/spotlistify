@@ -41,3 +41,11 @@ export const PlaylistSchema = z.object({
         message: "Please Add a description"
     })
 })
+
+//edit playlist schema
+export const EditPlaylistSchema = z.object({
+    
+    description: z.string().min(4, {
+        message: "Please enter a valid link"
+    })
+})
