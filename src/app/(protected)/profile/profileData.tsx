@@ -3,6 +3,7 @@ import SignOutButton from "@/app/auth/login/SignoutButton";
 import AddPlaylist from "@/components/AddPlaylist";
 import EditProfile from "@/components/EditProfile";
 import PlaylistCard from "@/components/Playlist";
+import PlaylistInfo from "@/components/PlaylistInfo";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -38,7 +39,7 @@ export default function ProfilePage({ profileData }: { profileData: any }) {
         <section className="w-full flex flex-col gap-2">
           <h1 className="text-xl font-bold mb-3">My Playlists</h1>
           {profileData?.playlists?.map((playlist: any) => (
-            <PlaylistCard
+            <PlaylistInfo
               key={playlist.id}
               isProfile={true}
               description={playlist.description}

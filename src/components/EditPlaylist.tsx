@@ -33,7 +33,7 @@ export default  function EditPlaylist({ description, userId }: { description: st
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <h1 className="text-sm hover:underline duration-150">Edit</h1>
+        <Button>Edit Playlist</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-zinc-900 border-none flex flex-col items-start">
         <DialogHeader>

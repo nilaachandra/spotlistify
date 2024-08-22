@@ -15,7 +15,7 @@ export default function ConfirmDelete() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <h1 className="hover:underline transition-all duration-150">Delete</h1>
+        <Button>Delete Playlist</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-zinc-900 border-none">
         <AlertDialogHeader>
