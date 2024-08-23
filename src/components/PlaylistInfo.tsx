@@ -41,13 +41,12 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
   userId,
   playlistId,
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
   const { refetch } = useProfile();
 
   const handleDelete = async () => {
     try {
       toast.promise(deletePlaylist(playlistId), {
-        loading: "Loading...",
+        loading: "Deleting...",
         success: () => {
           return "Playlist has been deleted";
         },
@@ -86,16 +85,18 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
                 <p className="text-zinc-400">{info}</p>
                 <p className="text-zinc-400">Posted by {postedBy}</p>
               </div>
-              {isProfile && <div className="flex gap-3 mt-3 w-full">
-                <EditPlaylist description={description} userId={playlistId} />
-                <Button 
-                  variant="default"
-                  className=""
-                  onClick={() => handleDelete()}
-                >
-                  Delete Playlist
-                </Button>
-              </div>}
+              {isProfile && (
+                <div className="flex gap-3 mt-3 w-full">
+                  <EditPlaylist description={description} userId={playlistId} />
+                  <Button
+                    variant="default"
+                    className=""
+                    onClick={() => handleDelete()}
+                  >
+                    Delete Playlist
+                  </Button>
+                </div>
+              )}
               <div className="btns mt-3">
                 {/* <div className="flex items-center gap-2">
                   <Heart />27
