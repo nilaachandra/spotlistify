@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { editPlaylist } from "@/app/actions/playlist";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -12,23 +13,32 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useProfile } from "@/contexts/profileContext";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default  function EditPlaylist({ description, userId }: { description: string, userId: string }) {
-  const [newDesc, setNewDesc] = useState(description)
+export default function EditPlaylist({
+  description,
+  userId,
+}: {
+  description: string;
+  userId: string;
+}) {
+  const [newDesc, setNewDesc] = useState(description);
+  const { refetch } = useProfile();
   const handleSubmit = async () => {
     try {
-      const result = await editPlaylist(userId, newDesc)
+      const result = await editPlaylist(newDesc, userId);
       if (result.success) {
         toast.success("Playlist updated successfully");
+        refetch();
       } else {
         toast.error(result.error || "Failed to update playlist");
       }
     } catch (error) {
       toast.error("An unexpected error occurred");
     }
-  }
+  };
 
   return (
     <Dialog>
@@ -57,7 +67,11 @@ export default  function EditPlaylist({ description, userId }: { description: st
           </div>
         </div>
         <DialogFooter className="flex items-end justify-end w-full">
-          <Button type="submit" onClick={() => handleSubmit()}>Save Changes</Button>
+          <DialogClose>
+            <Button type="submit" onClick={() => handleSubmit()}>
+              Save Changes
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

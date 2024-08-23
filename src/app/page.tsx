@@ -1,9 +1,14 @@
+"use client"
 import Heart from "@/components/Heart";
 import PlaylistCard from "@/components/Playlist";
+import PlaylistInfo from "@/components/PlaylistInfo";
 import { Button } from "@/components/ui/button";
+import { usePlaylists } from "@/hooks/usePlaylist";
 import { LuGithub } from "react-icons/lu";
 
 export default function Home() {
+  const { data } = usePlaylists();
+  console.log(data)
   return (
     <div className="w-full">
       <section className="hero min-h-[24vh] flex items-center justify-center flex-col">
@@ -27,16 +32,20 @@ export default function Home() {
           Discover cool Playlists, upvote, bookmark or share them!
         </h1>
         {/* List */}
-        <PlaylistCard
-          description="The ksdhhhfds"
-          imageUrl="/spotlistify.png"
-          likes={27}
-          owner="Nilaa Laishram"
-          postedBy="Nilaacodes"
-          songs="112 Songs"
-          title="Hahahahah"
-          isProfile={false}
-        />
+        {data?.map((playlist: any) => (
+          <PlaylistInfo
+            key={playlist.id}
+            isProfile={false}
+            description={playlist.description}
+            imageUrl={playlist.imageUrl}
+            likes={playlist.likes}
+            postedBy={playlist.username}
+            info={playlist.info}
+            title={playlist.title}
+            userId={playlist.userId}
+            playlistId={playlist.id}
+          />
+        ))}
         {/* list */}
       </section>
     </div>

@@ -2,9 +2,8 @@
 
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { EditPlaylistSchema, PlaylistSchema } from '@/schemas'
+import { PlaylistSchema } from '@/schemas'
 
-import { PrismaClient } from '@prisma/client'
 import { db } from '@/lib/db'
 
 export async function fetchMetadata(url: string) {
@@ -61,7 +60,9 @@ export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId
 export async function editPlaylist(description: string, userId: string) {
   try {
     const updatedPlaylist = await db.playlist.update({
-      where: { id: userId },
+      where: {
+        id: userId
+      },
       data: {
         description: description,
       }
@@ -71,5 +72,29 @@ export async function editPlaylist(description: string, userId: string) {
   } catch (error) {
     console.error('Failed to update playlist:', error)
     return { success: false, error: 'Failed to update playlist. Please try again.' }
+  }
+}
+
+export async function deletePlaylist(userId: string) {
+  try {
+    const deletedPlaylist = await db.playlist.delete({
+      where: {
+        id: userId
+      }
+    })
+    return { success: true, playlist: deletedPlaylist }
+  } catch (error) {
+    console.error('Failed to delete playlist:', error)
+    return { success: false, error: 'Failed to delete playlist. Please try again.' }
+  }
+}
+
+export async function allPlaylists() {
+  try {
+    const result = await db.playlist.findMany()
+    return result
+  } catch (error) {
+    console.error("Error fetching playlists", error);
+    throw new Error("Failed to fetch playlists.");
   }
 }

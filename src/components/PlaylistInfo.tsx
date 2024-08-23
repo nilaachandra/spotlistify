@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -14,7 +15,9 @@ import PlaylistCard from "./Playlist";
 import Image from "next/image";
 import Heart from "./Heart";
 import EditPlaylist from "./EditPlaylist";
-import ConfirmDelete from "./ConfirmDelete";
+import { deletePlaylist } from "@/app/actions/playlist";
+import { toast } from "sonner";
+import { useProfile } from "@/contexts/profileContext";
 type PlaylistCardProps = {
   imageUrl: string;
   title: string;
@@ -38,6 +41,24 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
   userId,
   playlistId,
 }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { refetch } = useProfile();
+
+  const handleDelete = async () => {
+    try {
+      toast.promise(deletePlaylist(playlistId), {
+        loading: "Loading...",
+        success: () => {
+          return "Playlist has been deleted";
+        },
+        error: "Error",
+      });
+      refetch();
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    }
+  };
+
   return (
     <Drawer>
       <DrawerTrigger className="w-full text-left">
@@ -65,10 +86,16 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
                 <p className="text-zinc-400">{info}</p>
                 <p className="text-zinc-400">Posted by {postedBy}</p>
               </div>
-              <div className="flex gap-3 mt-3">
-                <EditPlaylist description={description} userId={userId} />
-                <ConfirmDelete />
-              </div>
+              {isProfile && <div className="flex gap-3 mt-3 w-full">
+                <EditPlaylist description={description} userId={playlistId} />
+                <Button 
+                  variant="default"
+                  className=""
+                  onClick={() => handleDelete()}
+                >
+                  Delete Playlist
+                </Button>
+              </div>}
               <div className="btns mt-3">
                 {/* <div className="flex items-center gap-2">
                   <Heart />27
