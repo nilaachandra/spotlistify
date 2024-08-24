@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfile } from "@/contexts/profileContext";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -26,12 +27,15 @@ export default function EditPlaylist({
 }) {
   const [newDesc, setNewDesc] = useState(description);
   const { refetch } = useProfile();
+  const router = useRouter()
+
   const handleSubmit = async () => {
     try {
       const result = await editPlaylist(newDesc, userId);
       if (result.success) {
         toast.success("Playlist updated successfully");
         refetch();
+        router.refresh()
       } else {
         toast.error(result.error || "Failed to update playlist");
       }

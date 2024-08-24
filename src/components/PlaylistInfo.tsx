@@ -18,6 +18,8 @@ import EditPlaylist from "./EditPlaylist";
 import { deletePlaylist } from "@/app/actions/playlist";
 import { toast } from "sonner";
 import { useProfile } from "@/contexts/profileContext";
+import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 type PlaylistCardProps = {
   imageUrl: string;
   title: string;
@@ -42,7 +44,7 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
   playlistId,
 }) => {
   const { refetch } = useProfile();
-
+  const router = useRouter()
   const handleDelete = async () => {
     try {
       toast.promise(deletePlaylist(playlistId), {
@@ -53,6 +55,7 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
         error: "Error",
       });
       refetch();
+      router.refresh()
     } catch (error) {
       toast.error("An unexpected error occurred");
     }
