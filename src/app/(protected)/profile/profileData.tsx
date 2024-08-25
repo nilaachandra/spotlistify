@@ -50,6 +50,7 @@ export default function ProfilePage({ profileData }: { profileData: any }) {
               title={playlist.title}
               userId={playlist.userId}
               playlistId={playlist.id}
+              link={playlist.link}
             />
           ))}
         </section>

@@ -20,6 +20,8 @@ import { toast } from "sonner";
 import { useProfile } from "@/contexts/profileContext";
 import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
+import { LuLink } from "react-icons/lu";
+import { CopyLink } from "./CopyLInk";
 type PlaylistCardProps = {
   imageUrl: string;
   title: string;
@@ -30,6 +32,7 @@ type PlaylistCardProps = {
   isProfile: boolean;
   userId: string;
   playlistId: string;
+  link: string;
 };
 
 const PlaylistInfo: React.FC<PlaylistCardProps> = ({
@@ -42,9 +45,10 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
   info,
   userId,
   playlistId,
+  link,
 }) => {
   const { refetch } = useProfile();
-  const router = useRouter()
+  const router = useRouter();
   const handleDelete = async () => {
     try {
       toast.promise(deletePlaylist(playlistId), {
@@ -55,7 +59,7 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
         error: "Error",
       });
       refetch();
-      router.refresh()
+      router.refresh();
     } catch (error) {
       toast.error("An unexpected error occurred");
     }
@@ -74,6 +78,7 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
           postedBy={postedBy}
           title={title}
           userId={userId}
+          link={link}
         />
       </DrawerTrigger>
       <DrawerContent className="bg-zinc-900 border border-zinc-900 max-w-[712px] mx-auto w-full ">
@@ -82,8 +87,22 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
           <DrawerDescription>
             <div className="text-white text-left">
               <div>
-                <Image src={imageUrl} width={150} height={150} alt={title} />
+                <Image
+                  src={imageUrl}
+                  width={150}
+                  height={150}
+                  alt={title}
+                  className="rounded-lg"
+                />
                 <h1 className="text-xl font-bold">{title}</h1>
+
+                <div className="flex items-end gap-1.5">
+                  <CopyLink link={link} />
+
+                  <a href={link} className="text-blue-600 underline ">
+                    Open in Spotify
+                  </a>
+                </div>
                 <p className="">{description}</p>
                 <p className="text-zinc-400">{info}</p>
                 <p className="text-zinc-400">Posted by {postedBy}</p>

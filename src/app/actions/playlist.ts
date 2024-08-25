@@ -18,7 +18,7 @@ export async function fetchMetadata(url: string) {
   }
 }
 
-export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId: string,) {
+export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, username: string,) {
   try {
     // Fetch metadata
     const metadataResult = await fetchMetadata(values.link)
@@ -38,7 +38,7 @@ export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId
       data: {
         link: values.link,
         description: values.description,
-        userId: userId,
+        username: username,
         title: title,
         imageUrl: imageUrl,
         info: metadataDescription,

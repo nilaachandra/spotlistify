@@ -13,6 +13,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "i2o.scdn.co"
+      },
+      {
+        protocol: "https",
+        hostname: "image-cdn-fa.spotifycdn.com"
       }
     ],
   },

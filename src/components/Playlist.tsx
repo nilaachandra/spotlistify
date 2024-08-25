@@ -14,6 +14,7 @@ type PlaylistCardProps = {
   isProfile: boolean;
   userId: string;
   playlistId: string;
+  link: string
 };
 
 const PlaylistCard: React.FC<PlaylistCardProps> = ({
@@ -25,7 +26,8 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
   likes,
   info,
   userId,
-  playlistId
+  playlistId,
+  link
 }) => {
   return (
     <div className="bg-zinc-900 w-full p-3 rounded-lg flex items-center justify-between cursor-pointer">
@@ -53,10 +55,6 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
             ) : null}
           </div>
         </div>
-      </div>
-      <div className="flex items-center justify-center flex-col">
-        <Heart />
-        <span>{likes}</span>
       </div>
     </div>
   );
