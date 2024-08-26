@@ -20,6 +20,18 @@ const bricolage = Bricolage_Grotesque({
 export const metadata: Metadata = {
   title: "Spotlistify",
   description: "A Spotify Playlists Directory",
+  icons: {
+    icon: ["spotlistify-rounded.png"],
+  },
+  openGraph: {
+    title: "Spotlistify",
+    description: "A Spotify Playlists Directory",
+    url: "https://spotlistify.vercel.app",
+    siteName: "Spotlistify",
+    images: [{ url: "/spotlistify-og.png", width: 1200, height: 630 }],
+    locale: "en-IN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

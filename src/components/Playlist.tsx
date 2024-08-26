@@ -32,7 +32,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
   return (
     <div className="bg-zinc-900 w-full p-3 rounded-lg flex items-center justify-between cursor-pointer">
       <div className="imgandtitle flex gap-2 items-center">
-        <Image
+        <img
           src={imageUrl}
           width={84}
           height={84}

@@ -87,7 +87,7 @@ const PlaylistInfo: React.FC<PlaylistCardProps> = ({
           <DrawerDescription>
             <div className="text-white text-left">
               <div>
-                <Image
+                <img
                   src={imageUrl}
                   width={150}
                   height={150}
