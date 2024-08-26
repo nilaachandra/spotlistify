@@ -7,7 +7,7 @@ import Footer from "./Footer";
 import { cn } from "@/lib/utils";
 import TanstackProvider from "./_provider";
 import { ProfileProvider } from "@/contexts/profileContext";
-
+import { Analytics } from "@vercel/analytics/react";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -57,6 +57,7 @@ export default function RootLayout({
             </div>
           </ProfileProvider>
         </TanstackProvider>
+        <Analytics />
       </body>
     </html>
   );
