@@ -20,6 +20,7 @@ import { signIn } from "next-auth/react";
 import { LoginSchema } from "@/schemas";
 import { Card, CardTitle } from "@/components/ui/card";
 import { IoReloadCircleOutline } from "react-icons/io5";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -109,6 +110,7 @@ const LoginForm = () => {
           </Button>
         </form>
       </Form>
+      <p>Don&apos;t have an account? <Link href="/auth/signup" className="text-green underline">Sign Up</Link></p>
     </Card>
   );
 };

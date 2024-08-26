@@ -20,6 +20,7 @@ import { IoReloadCircleOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SignupForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -61,13 +62,15 @@ const SignupForm = () => {
           toast.success("Your account has been created, please Login!");
         } else {
           toast.error(
-            response.data.message || "Account creation failed. Please try again."
+            response.data.message ||
+              "Account creation failed. Please try again."
           );
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           toast.error(
-            error.response.data.message || "An error occurred. Please try again."
+            error.response.data.message ||
+              "An error occurred. Please try again."
           );
         } else {
           console.error("Error during signup:", error);
@@ -89,7 +92,9 @@ const SignupForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="username" className="font-semibold">Username</FormLabel>
+                <FormLabel htmlFor="username" className="font-semibold">
+                  Username
+                </FormLabel>
                 <FormControl>
                   <Input
                     id="username"
@@ -109,7 +114,9 @@ const SignupForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="email" className="font-semibold">Email</FormLabel>
+                <FormLabel htmlFor="email" className="font-semibold">
+                  Email
+                </FormLabel>
                 <FormControl>
                   <Input
                     id="email"
@@ -129,7 +136,9 @@ const SignupForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="password" className="font-semibold">Password</FormLabel>
+                <FormLabel htmlFor="password" className="font-semibold">
+                  Password
+                </FormLabel>
                 <FormControl>
                   <Input
                     id="password"
@@ -178,6 +187,12 @@ const SignupForm = () => {
           </Button>
         </form>
       </Form>
+      <p>
+        Already have an account?{" "}
+        <Link href="/auth/login" className="text-green underline">
+          Log In
+        </Link>
+      </p>
     </Card>
   );
 };
