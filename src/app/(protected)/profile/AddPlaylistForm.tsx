@@ -20,7 +20,13 @@ import { IoReloadCircleOutline } from "react-icons/io5";
 import { addPlaylist, fetchMetadata } from "@/app/actions/playlist";
 import { useProfile } from "@/contexts/profileContext";
 
-const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
+const AddPlaylistForm = ({
+  userId,
+  username,
+}: {
+  userId: string;
+  username: string | null;
+}) => {
   const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
   const [isMetaValid, setIsMetaValid] = useState<boolean | null>(null);
@@ -59,13 +65,13 @@ const AddPlaylistForm = ({ userId }: { userId: string | null }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof PlaylistSchema>) => {
-    if (!userId) {
+    if (!username) {
       toast.error("User ID is missing. Please log in.");
       return;
     }
 
     startTransition(async () => {
-      const result = await addPlaylist(values, userId);
+      const result = await addPlaylist(values, userId, username);
       if (result.success) {
         toast.success(result.message);
         form.reset();

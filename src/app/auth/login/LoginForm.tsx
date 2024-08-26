@@ -56,7 +56,7 @@ const LoginForm = () => {
   };
 
   return (
-    <Card className="lg:w-1/2 w-full p-4 border border-black">
+    <Card className="lg:w-1/2 w-full p-4 border border-black bg-zinc-900 text-white">
       <CardTitle className="mb-3 text-lg">Sign In to your account</CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

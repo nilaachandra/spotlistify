@@ -10,7 +10,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export default function AddPlaylist({ userId }: { userId: string | null }) {
+export default function AddPlaylist({
+  userId,
+  username,
+}: {
+  userId: string;
+  username: string | null;
+}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -24,7 +30,7 @@ export default function AddPlaylist({ userId }: { userId: string | null }) {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4 text-left items-start w-full">
-          <AddPlaylistForm userId={userId} />
+          <AddPlaylistForm userId={userId} username={username} />
         </div>
         <DialogFooter className="flex items-end justify-end w-full"></DialogFooter>
       </DialogContent>

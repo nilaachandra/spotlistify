@@ -33,8 +33,9 @@ model Playlist {
   imageUrl    String?
   description String?
   link        String
-  user        User      @relation(fields: [username], references: [id])
-  username    String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    
+  username    String    
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   likes       Like[]

@@ -18,7 +18,7 @@ export async function fetchMetadata(url: string) {
   }
 }
 
-export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, username: string,) {
+export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userId: string, username: string,) {
   try {
     // Fetch metadata
     const metadataResult = await fetchMetadata(values.link)
@@ -39,6 +39,7 @@ export async function addPlaylist(values: z.infer<typeof PlaylistSchema>, userna
         link: values.link,
         description: values.description,
         username: username,
+        userId: userId,
         title: title,
         imageUrl: imageUrl,
         info: metadataDescription,
@@ -91,7 +92,11 @@ export async function deletePlaylist(userId: string) {
 
 export async function allPlaylists() {
   try {
-    const result = await db.playlist.findMany()
+    const result = await db.playlist.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
     return result
   } catch (error) {
     console.error("Error fetching playlists", error);

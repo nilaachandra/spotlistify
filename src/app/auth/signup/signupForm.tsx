@@ -57,8 +57,8 @@ const SignupForm = () => {
         });
 
         if (response.status === 200) {
-          router.push("/profile");
-          toast.success("Your account has been created!");
+          router.push("/auth/login");
+          toast.success("Your account has been created, please Login!");
         } else {
           toast.error(
             response.data.message || "Account creation failed. Please try again."
@@ -78,7 +78,7 @@ const SignupForm = () => {
   };
 
   return (
-    <Card className="p-4 border border-black">
+    <Card className="p-4 border border-black bg-zinc-900 text-white">
       <CardTitle className="mb-3 text-lg">
         Sign Up now to start listing your Playlists
       </CardTitle>
